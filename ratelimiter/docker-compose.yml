@@ -8,46 +8,51 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      retries: 5
+      timeout: 5s
 
   app1:
     build: .
     container_name: rate-limiter-app1
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
     ports:
       - "8081:8080"
+    depends_on:
+      - redis
 
   app2:
     build: .
     container_name: rate-limiter-app2
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
     ports:
       - "8082:8080"
+    depends_on:
+      - redis
 
   app3:
     build: .
     container_name: rate-limiter-app3
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
     ports:
       - "8083:8080"
+    depends_on:
+      - redis
 
   app4:
     build: .
     container_name: rate-limiter-app4
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
     ports:
       - "8084:8080"
+    depends_on:
+      - redis
 
   app5:
     build: .
     container_name: rate-limiter-app5
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
     ports:
       - "8085:8080"
+    depends_on:
+      - redis
 
   nginx:
     image: nginx:latest
