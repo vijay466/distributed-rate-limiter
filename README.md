@@ -118,7 +118,7 @@ spring.redis.jedis.pool.max-wait=2000
    mvn clean install
    ```
 
-3. **Run multiple Spring Boot instances (in separate terminals):**
+3. **Run multiple Spring Boot instances (in separate terminals or use Docker compose):**
 
    ```bash
    mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=8081
